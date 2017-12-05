@@ -15,20 +15,19 @@ I_bak=/home/mysql_data/incremental_bak/$Date
 Login="--user=$User --password=$Pwd"
 [[ -x /home/mysql_data/full_bak ]] || mkdir -p /home/mysql_data/full_bak
 [[ -x /home/mysql_data/incremental_bak ]] || mkdir -p /home/mysql_data/incremental_bak
-#[[ -x /home/mysql_data/log ]] || mkdir -p /home/mysql_data/log
 
 if [[ -x $F_bak ]];then
 	#incremental backup
-	c=`ls -dl  /home/mysql_data/incremental_bak/* |wc -l`
-	nfile=`ls -td /home/mysql_data/incremental_bak/*|head -1`
-
+	c=`ls -dl $I_bak/* | wc -l`
+	Nfile_I=`ls -td $I_bak/* | head -1`
+	Nfile_F=`ls -td $F_bak/* | head -1`
 	if [[ $c -ge 1 ]];then
-		#$Inb $Login --use-memory=$Mem  --incremental $I_bak --incremental-dir $nfile
-		$Inb $Login --incremental $I_bak --incremental-dir $nfile
+		#$Inb $Login --use-memory=$Mem --incremental-basedir=$nfile --incremental $I_bak
+		$Inb $Login --incremental-basedir=$Nfile_I --incremental $I_bak
 	else
 		#first time to run incremental bakcup
-		#$Inb $Login --use-memory=$Mem  --incremental $I_bak --incremental-dir $F_bak
-		$Inb $Login --incremental $I_bak --incremental-dir $F_bak
+		#$Inb $Login --use-memory=$Mem --incremental-basedir=$F_bak --incremental $I_bak
+		$Inb $Login --incremental-basedir=$Nfile_F --incremental $I_bak
 	fi
 else
 	#full backup
