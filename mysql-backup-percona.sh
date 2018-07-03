@@ -63,7 +63,7 @@ else
 	data_op
 	sleep 2
 	$Inb $Login --apply-log --redo-only $file
-	for i in `ls -td $restore_i/* | sort -t '/' -k 5`;do
+	for i in `ls -td $restore_i/* | sort -t '/' -k 4`;do
 		$Inb $Login --apply-log --redo-only $file --incremental-dir=$i
 	done
 	$Inb $Login --copy-back $file
