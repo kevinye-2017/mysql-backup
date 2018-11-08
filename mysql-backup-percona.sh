@@ -3,8 +3,8 @@
 # Incremental Backups with percona tool
 # create by kevin
 
-User=root
-Pwd=123456
+User=mysql_user
+Pwd=mysql_password
 Inb=/usr/bin/innobackupex
 Date=`date +%Y-%m-%d`
 Bak_home=/home/mysql_data
