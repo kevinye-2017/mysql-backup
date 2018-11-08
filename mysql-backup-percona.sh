@@ -64,9 +64,9 @@ else
 	sleep 2
 	$Inb $Login --apply-log --redo-only $file
 	for i in `ls -td $restore_i/* | sort -t '/' -k 4`;do
-		$Inb $Login --apply-log --redo-only $file --incremental-dir=$i
+		$Inb --apply-log --redo-only $file --incremental-dir=$i
 	done
-	$Inb $Login --copy-back $file
+	$Inb --copy-back $file
 	if [[ $? -eq 0 ]];then
 		printf "restore complete"
 		mysql_op
